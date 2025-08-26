@@ -5,17 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
 @RestController
-public class RahulSpringApplication {
+public class TestController {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RahulSpringApplication.class, args);
-	}
-
-    @GetMapping("/")
-    public String hello(){
-        return "hello rahul";
+    @GetMapping("/test")
+    public String test() {
+        return "Spring Boot is working!";
     }
 
 }
