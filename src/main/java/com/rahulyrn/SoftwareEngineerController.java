@@ -1,8 +1,6 @@
 package com.rahulyrn;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +9,20 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
-//    @GetMapping
-//    public String names(){
-//        return "Rahul singhal";
-//    }
+    private final SoftwareEngineerService softwareEngineerService;
+
+    public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
+        this.softwareEngineerService = softwareEngineerService;
+    }
 
     @GetMapping
-    public ArrayList<SoftwareEngineer> getEngineers(){
-        ArrayList<SoftwareEngineer> engineers = new ArrayList<SoftwareEngineer>();
-        SoftwareEngineer rahul = new SoftwareEngineer(1, "Rahul", "Java");
-        SoftwareEngineer rohan = new SoftwareEngineer(2, "Rohan", "C");
-        engineers.add(rahul);
-        engineers.add(rohan);
-        return engineers;
+    public List<SoftwareEngineer> getEngineers() {
+        return softwareEngineerService.getEngineers();
+    }
+
+    @PostMapping
+    public SoftwareEngineer createEngineer(@RequestBody SoftwareEngineer person) {
+        return softwareEngineerService.createEngineer(person);
     }
 
 }
