@@ -70,10 +70,10 @@ public class JournalController {
 //        }
 //    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteJournal(@PathVariable ObjectId id) {
+    @DeleteMapping("/{id}/user/{username}")
+    public ResponseEntity<?> deleteJournal(@PathVariable ObjectId id, @PathVariable String username) {
         try {
-            journalService.deleteJournal(id);
+            journalService.deleteJournal(id, username);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

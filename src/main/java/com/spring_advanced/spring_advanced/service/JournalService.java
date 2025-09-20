@@ -47,7 +47,21 @@ public class JournalService {
         return journalRepository.findById(id);
     }
 
-    public void deleteJournal(ObjectId id) {
-        journalRepository.deleteById(id);
+    @Transactional
+    public void deleteJournal(ObjectId id, String username) {
+        try {
+            Optional<User> user = userRepository.findUserByUsername(username);
+            if (user.isPresent()) {
+                User updatedUser = user.get();
+                List<Journal> journalList = updatedUser.getJournals();
+                journalList.removeIf(value -> value.getId().equals(id));
+                journalRepository.deleteById(id);
+                updatedUser.setJournals(journalList);
+                userRepository.save(updatedUser);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Something went wrong while deleting a journal", e);
+        }
     }
 }
